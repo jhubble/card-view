@@ -1,9 +1,9 @@
 import React from 'react';
 import { Card, Image } from 'semantic-ui-react';
 
-const ElderCard = ({ image, name, setName, text, type }) => (
+const ElderCard = ({ imageUrl, name, setName, text, type }) => (
   <Card>
-    <Image src={image} ui={false} wrapped />
+    <Image src={imageUrl} ui={false} wrapped />
     <Card.Content>
       <Card.Header>{name}</Card.Header>
       <Card.Meta>
