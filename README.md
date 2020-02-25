@@ -8,14 +8,20 @@ Will display cards from the Elder Scrolls API
         yarn install
 
 
-To run:
+## To run:
 * Run
         yarn start
 * A web browser should open. Otherwise, go to http://localhost:3000
 
+## To run tests
+* yarn test
+
+## Notes
+
 This app was created with create-react-app. It includes auto-reload for modifications.
 Semantic UI is used for UI components.
-Inifinte Scroll is used to load additional cards. All cards are currently kept in memory after being loaded
+Inifinte Scroll is used to load additional cards. All cards are currently kept in memory after being loaded.
+For accessibility, a button is also provided to load more. This is also used as s hook for testing.
 
 ## Development
 Codebase includes configuration for (https://code.visualstudio.com/) This provides automatic code formatting and linting using eslint and prettier. These configurations can also be used with other IDEs.
@@ -31,7 +37,4 @@ Codebase includes configuration for (https://code.visualstudio.com/) This provid
 - Add additional tests and unit tests
 - Implement removal from DOM of old cards on low memory
 - Search and filter
-
-### Todos
-- Get CardList test to work
-- Clean out old testing library
+- Better error handling.

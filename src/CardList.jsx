@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useEffect, useState } from 'react';
-import { Dimmer, Grid, Loader, Visibility } from 'semantic-ui-react';
+import { Dimmer, Grid, Loader, Message, Visibility } from 'semantic-ui-react';
 import CardFetch from './CardFetch';
 import ElderCard from './ElderCard';
 
@@ -9,6 +9,7 @@ const CardList = () => {
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [availableCards, setAvailableCards] = useState(0);
+  const [error, setError] = useState(null);
 
   async function fetchCards() {
     setLoading(true);
@@ -17,7 +18,9 @@ const CardList = () => {
       setCards(cards.concat(result.cards));
       // eslint-disable-next-line no-underscore-dangle
       setAvailableCards(result._totalCount);
+      setError(null);
     } catch (e) {
+      setError(`Error Loading Cards (server message: ${e})`);
       // error loading cards
     } finally {
       setLoading(false);
@@ -33,15 +36,17 @@ const CardList = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
+  const showMoreHandler = () => {
+    if (!loading) {
+      // setLoading is most likely redundant here.
+      // Could another event get triggered before the hook would be run?
+      setLoading(true);
+      setPage(page + 1);
+    }
+  };
   return (
     <div>
-      <Visibility
-        continuous
-        onBottomVisible={() => {
-          !loading && setPage(page + 1);
-        }}
-        once={false}
-      >
+      <Visibility continuous onBottomVisible={showMoreHandler} once={false}>
         <Dimmer active={loading} page>
           <Loader />
         </Dimmer>
@@ -55,8 +60,16 @@ const CardList = () => {
               );
             })}
         </Grid>
+        {error && <Message error>{error}</Message>}
       </Visibility>
-      <div className="end-container">{`Viewing ${cards.length} out of ${availableCards} cards`}</div>
+      <div className="end-container">
+        {`Viewing ${cards.length} out of ${availableCards} cards`}.
+        {cards.length !== availableCards && (
+          <button onClick={showMoreHandler} type="button">
+            Load More
+          </button>
+        )}
+      </div>
     </div>
   );
 };
