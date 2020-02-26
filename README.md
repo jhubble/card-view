@@ -4,6 +4,7 @@ Will display cards from the Elder Scrolls API
 
 ## Installation 
 * Install yarn (see https://classic.yarnpkg.com/en/docs/install)
+* Clone this repo
 * in the project directory, run:
         yarn install
 
