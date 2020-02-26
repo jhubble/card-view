@@ -1,9 +1,13 @@
+/* eslint-disable react/jsx-filename-extension */
 import React from 'react';
-import { render } from '@testing-library/react';
+import ShallowRenderer from 'react-test-renderer/shallow';
 import App from './App';
 
-test('renders learn react link', () => {
-  const { getByText } = render(<App />);
-  const linkElement = getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+describe('App Component', () => {
+  it('should render without crashing', () => {
+    const renderer = new ShallowRenderer();
+    renderer.render(<App />);
+    const result = renderer.getRenderOutput();
+    expect(result.type).toBe('div');
+  });
 });
