@@ -41,3 +41,4 @@ Codebase includes configuration for (https://code.visualstudio.com/) This provid
 - Implement removal from DOM of old cards on low memory
 - Search and filter
 - Better error handling.
+- Add additional responsive breakpoints (currently it only switches from 4 column to single column "mobile"
