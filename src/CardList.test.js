@@ -48,7 +48,7 @@ describe('CardList component', () => {
     });
     mockApiResults = elderResults2;
     await act(async () => {
-      container.querySelector('button').dispatchEvent(new MouseEvent('click', { bubbles: true }));
+      container.querySelector('button.moreButton').dispatchEvent(new MouseEvent('click', { bubbles: true }));
     });
     const cards = container.querySelectorAll('.stackable.grid .column');
     expect(cards.length).toBe(40);
@@ -62,7 +62,7 @@ describe('CardList component', () => {
     await act(async () => {
       ReactDOM.render(<CardList />, container);
     });
-    const button = container.querySelector('button');
+    const button = container.querySelector('button.moreButton');
     expect(button).toBe(null);
     const endContainer = container.querySelector('.end-container');
     expect(endContainer.innerHTML).toMatch(/20/);

@@ -17,3 +17,9 @@ code {
   height: 40em;
   margin: 10px;
 }
+
+.search-box {
+  display: block;
+  height: 30px;
+  margin-bottom: 10px;
+}

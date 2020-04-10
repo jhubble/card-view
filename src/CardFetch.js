@@ -13,10 +13,12 @@ const PAGE_SIZE = 20;
  * @param {number} page - page of results to return
  *
  */
-const CardFetch = page => {
-  return fetch(`https://api.elderscrollslegends.io/v1/cards?pageSize=${PAGE_SIZE}&page=${page}`).then(response => {
-    return response.json();
-  });
+const CardFetch = (page, name) => {
+  return fetch(`https://api.elderscrollslegends.io/v1/cards?pageSize=${PAGE_SIZE}&page=${page}&name=${name}`).then(
+    response => {
+      return response.json();
+    },
+  );
 };
 
 export default CardFetch;

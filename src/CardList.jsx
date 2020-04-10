@@ -10,12 +10,21 @@ const CardList = () => {
   const [page, setPage] = useState(1);
   const [availableCards, setAvailableCards] = useState(0);
   const [error, setError] = useState(null);
+  const [search, setSearch] = useState('');
+  const [searchString, setSearchString] = useState('');
 
   async function fetchCards() {
     setLoading(true);
     try {
-      const result = await CardFetch(page);
-      setCards(cards.concat(result.cards));
+      if (page === 1) {
+        setCards([]);
+      }
+      const result = await CardFetch(page, search);
+      if (page === 1) {
+        setCards(result.cards);
+      } else {
+        setCards(cards.concat(result.cards));
+      }
       // eslint-disable-next-line no-underscore-dangle
       setAvailableCards(result._totalCount);
       setError(null);
@@ -28,24 +37,39 @@ const CardList = () => {
   }
 
   useEffect(() => {
-    if (availableCards && availableCards === cards.length) {
-      // Don't try to fetch cards if we already are displaying all cards
-      return;
-    }
+    // We should gate on the event, thus allowing search to work
     fetchCards();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page]);
+  }, [page, search]);
 
   const showMoreHandler = () => {
-    if (!loading) {
+    if (!loading && cards.length !== availableCards) {
       // setLoading is most likely redundant here.
       // Could another event get triggered before the hook would be run?
       setLoading(true);
       setPage(page + 1);
     }
   };
+
+  const filterResults = () => {
+    setSearch(searchString);
+    setPage(1);
+  };
   return (
     <div>
+      <div className="search-box">
+        <input
+          onChange={e => {
+            setSearchString(e.target.value);
+          }}
+          type="text"
+          value={searchString}
+        />
+        <button className="searchButton" onClick={filterResults} type="button">
+          Filter Results
+        </button>
+      </div>
+
       <Visibility continuous onBottomVisible={showMoreHandler} once={false}>
         <Dimmer active={loading} page>
           <Loader />
@@ -65,7 +89,7 @@ const CardList = () => {
       <div className="end-container">
         {`Viewing ${cards.length} out of ${availableCards} cards`}.
         {cards.length !== availableCards && (
-          <button onClick={showMoreHandler} type="button">
+          <button className="moreButton" onClick={showMoreHandler} type="button">
             Load More
           </button>
         )}

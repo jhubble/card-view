@@ -5,13 +5,36 @@
  * https://react.semantic-ui.com/views/card/#types-card
  */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
 const ElderCard = ({ imageUrl, name, set, text, type }) => {
+  const [status, setStatus] = useState(false);
   const setName = set && set.name;
-  return <Card description={text} extra={set && `Set: ${setName}`} fluid header={name} image={imageUrl} meta={type} />;
+  useEffect(() => {
+    const status = window.localStorage.getItem(name) === 'true';
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    setStatus(status);
+  }, [name]);
+  const toggleStatus = () => {
+    setStatus(!status);
+    window.localStorage.setItem(name, `${!status}`);
+  };
+  const cardName = name + (status ? '*' : '');
+  return (
+    <Card
+      description={text}
+      extra={set && `Set: ${setName}`}
+      fluid
+      header={cardName}
+      image={imageUrl}
+      meta={type}
+      onClick={() => {
+        toggleStatus();
+      }}
+    />
+  );
 };
 
 ElderCard.propTypes = {

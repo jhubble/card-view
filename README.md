@@ -37,4 +37,4 @@ Codebase includes configuration for (https://code.visualstudio.com/) This provid
 - Add additional tests and unit tests
 - Implement removal from DOM of old cards on low memory
 - Search and filter
-- Better error handling.
+- Better error handling
