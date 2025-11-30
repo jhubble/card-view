@@ -1,5 +1,10 @@
 # Elder Scrolls Card view 
 
+## This is dead. The Elder Scrolls data is no longer available, and the API no longer works.
+In order to build and run the code, you must use an old version of yarn and node (such as v8)
+However, this will only build a non-functional app since the API is no longer supported
+There are many vulnerabilities and unsupported modules (such as create react app) that should also be updated
+
 Will display cards from the Elder Scrolls API
 
 ## Installation 
